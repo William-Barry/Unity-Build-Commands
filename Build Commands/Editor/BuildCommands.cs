@@ -116,32 +116,34 @@ namespace Project.Build.Commands
 			UpdateBuildData();
 		}
 
+		[System.Obsolete("CompressBuild is not used anymore.")]
 		public static void CompressBuild(BuildReport report, BuildData buildData)
 		{
-			string outputPath = System.IO.Path.GetDirectoryName(report.summary.outputPath);
+			//string projectDirectory = Application.dataPath.Replace("Assets", "").Replace("\\", "/");
+			//string outputPath = System.IO.Path.GetDirectoryName(report.summary.outputPath);
+			//string assetPath = GetBuildCommandPath();
 
-			string assetPath = GetBuildCommandPath();
-
-			string command = "\"" + Application.dataPath + assetPath + "Editor/Build Scripts/compress_build.ps1\"";
-			command += " \"" + outputPath + "/\" \"" + buildData.zipFileName + "-" + report.summary.platform.ToString() + ".zip\"";
-			//command = "-NoExit -ExecutionPolicy Bypass -File " + command;
-			command = "-ExecutionPolicy Bypass -File " + command;
-			Debug.Log(command);
-			System.Diagnostics.Process process = new System.Diagnostics.Process();
-			process.StartInfo = new System.Diagnostics.ProcessStartInfo("powershell.exe", command);
-			process.Start();
-			process.WaitForExit();
-			process.Close();
+			//string command = "\"" + Application.dataPath + assetPath + "Editor/Build Scripts/compress_build.ps1\"";
+			//command += " \"" + outputPath + "/\" \"" + projectDirectory + buildData.zipFileName + "-" + report.summary.platform.ToString() + ".zip\"";
+			////command = "-NoExit -ExecutionPolicy Bypass -File " + command;
+			//command = "-ExecutionPolicy Bypass -File " + command;
+			//Debug.Log(command);
+			//System.Diagnostics.Process process = new System.Diagnostics.Process();
+			//process.StartInfo = new System.Diagnostics.ProcessStartInfo("powershell.exe", command);
+			//process.Start();
+			//process.WaitForExit();
+			//process.Close();
 		}
 
 		public static void ButlerUpload(BuildReport report, BuildData buildData)
 		{
+			string projectDirectory = Application.dataPath.Replace("Assets", "");
 			string outputPath = System.IO.Path.GetDirectoryName(report.summary.outputPath);
-
 			string assetPath = GetBuildCommandPath();
 
 			string butler = "\'" + Application.dataPath + assetPath + "Editor/Butler/butler.exe\'";
-			string zipfile = "\"" + outputPath + "/" + buildData.zipFileName + "-" + report.summary.platform.ToString() + ".zip\"";
+			string zipfile = "\"" + outputPath + "\"";
+			//string zipfile = "\"" + projectDirectory + "/" + buildData.zipFileName + "-" + report.summary.platform.ToString() + ".zip\"";
 
 			string platform = "";
 			switch(report.summary.platform)
@@ -183,16 +185,18 @@ namespace Project.Build.Commands
 			process.Close();
 		}
 
+		[System.Obsolete("DeleteZip is not used anymore.")]
 		public static void DeleteZip(BuildReport report, BuildData buildData)
 		{
-			string outputPath = System.IO.Path.GetDirectoryName(report.summary.outputPath);
+			//string projectDirectory = Application.dataPath.Replace("Assets", "");
+			//string outputPath = System.IO.Path.GetDirectoryName(report.summary.outputPath);
+			//string zipfile = "\'" + projectDirectory + buildData.zipFileName + "-" + report.summary.platform.ToString() + ".zip\'";
 
-			string zipfile = "\'" + outputPath + "/" + buildData.zipFileName + "-" + report.summary.platform.ToString() + ".zip\'";
-			//string command = "-NoExit Remove-Item " + zipfile;
-			string command = "Remove-Item " + zipfile;
-			System.Diagnostics.Process process = System.Diagnostics.Process.Start("powershell.exe", command);
-			process.WaitForExit();
-			process.Close();
+			////string command = "-NoExit Remove-Item " + zipfile;
+			//string command = "Remove-Item " + zipfile;
+			//System.Diagnostics.Process process = System.Diagnostics.Process.Start("powershell.exe", command);
+			//process.WaitForExit();
+			//process.Close();
 		}
 
 		public void OnPostprocessBuild(BuildReport report)
@@ -204,9 +208,9 @@ namespace Project.Build.Commands
 			{
 				try
 				{
-					CompressBuild(report, buildData);
+					//CompressBuild(report, buildData);
 					ButlerUpload(report, buildData);
-					DeleteZip(report, buildData);
+					//DeleteZip(report, buildData);
 				}
 				catch (System.Exception ex)
 				{

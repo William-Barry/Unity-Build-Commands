@@ -26,7 +26,7 @@ namespace Project.Build.Commands
         public bool uploadBuild = true;
         public string studioName;
         public string projectName;
-        public string zipFileName;
+        [System.Obsolete("Zipfilename is deprecated. Please do not use and it will be removed in the future.")] [HideInInspector] public string zipFileName;
 
         [Header("Build Info")]
         public bool updateBuildInfo = true;

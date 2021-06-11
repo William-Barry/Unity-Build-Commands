@@ -16,10 +16,10 @@
 
 # target path
 $path = $args[0]
-$zipname = $args[1]
+$destination = $args[1]
 
 # construct archive path
-$destination = $path + $zipname
+#$destination = $path + $zipname
 
 # exclusion rules. Can use wild cards (*)
 $exclude = @(".git")
