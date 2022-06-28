@@ -192,7 +192,7 @@ namespace Project.Build.Commands
 				}
 				catch (System.Exception ex)
 				{
-					Debug.LogError("Something went wrong");
+					Debug.LogError(ex.Message);
 				}
 			}
 		}
